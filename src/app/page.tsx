@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 const ARTICLES = [
   {
     slug: "/blog/dosham",
-    titleEn: "Horoscope Doshams in Tamil Matrimony",
+    titleEn: "Horoscope Doshams in Kalyanawaran Matrimony",
     titleTa: "தமிழ் திருமணங்களில் ஜாதக தோஷங்கள் மற்றும் பரிகாரங்கள்",
     excerptEn:
       "Learn about Sevvai, Rahu-Ketu, Kalathira, Mangalya, Pithru, and Surya dosham — what they mean for your horoscope match and how to find remedies (pariharams) in Vedic astrology.",
