@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,6 +13,15 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+// GA4: the SAME property as the app (kalyanawaran REACT_APP_GTM_ID). The blog
+// is served under kalyanawaran.com/blog, so one property follows a reader
+// from an article into registration with no cross-domain setup. Unset = off.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+
+// Consent Mode defaults, the same as the app's initAnalytics(): analytics
+// storage on, every advertising signal off. Must run before gtag.js loads.
+const CONSENT_DEFAULTS = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("consent","default",{analytics_storage:"granted",ad_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});`;
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +39,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        {GA_ID && (
+          <Script id="ga-consent-defaults" strategy="beforeInteractive">
+            {CONSENT_DEFAULTS}
+          </Script>
+        )}
+      </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }
